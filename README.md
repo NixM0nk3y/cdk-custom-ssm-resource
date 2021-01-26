@@ -1,4 +1,4 @@
-# AWS CDK SSM Param Cross Accounnt Sharing Construct
+# AWS CDK SSM Param Cross Account Sharing Construct
 
 An AWS CDK construct for creating a custom CF resource for sharing
 SSM parameters over a number of (trusted!) accounts.
@@ -30,16 +30,17 @@ import { CustomResource } from '@aws-cdk/core';
 const cr = new CustomResource(this, 'ResourceTest', {
     serviceToken: serviceToken,
     properties: {
-        keyspace: '/isp/dev'
+        keyspace: '/dev/params/bar'
     }
 });
 
 new cdk.CfnOutput(this, "Output", {
-    value: cr.getAttString("/isp/dev/bar/wombat")
+    value: cr.getAttString("/dev/params/bar/wombat")
 });
 
 ```
-The custom resource will expose the SSM params as resource attributes.
+The custom resource will expose all the SSM params found under the `keyspace`
+path as resource attributes.
 
 # License
 
